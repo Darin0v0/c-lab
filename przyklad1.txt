@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+// Funkcja licząca średnią
+double liczSrednia(const int oceny[], int ile) {
+    int suma = 0;
+    for(int i = 0; i < ile; i++) {
+        suma += oceny[i];
+    }
+    return (double)suma / ile;
+}
+
+// Funkcja sprawdzająca zaliczenie
+bool czyZdane(double srednia) {
+    return srednia >= 3.0;
+}
+
+int main() {
+    // STAŁE dane (bez wpisywania)
+    const string imie = "Dawid";
+    const int oceny[] = {5, 4, 3, 5, 2};
+    const int ile = 5;
+
+    double srednia = liczSrednia(oceny, ile);
+
+    cout << "Uczen: " << imie << endl;
+    cout << "Oceny: ";
+
+    for(int i = 0; i < ile; i++) {
+        cout << oceny[i] << " ";
+    }
+
+    cout << "\nSrednia: " << srednia << endl;
+
+    if(czyZdane(srednia)) {
+        cout << "Status: ZDANE ✅" << endl;
+    } else {
+        cout << "Status: NIEZDANE ❌" << endl;
+    }
+
+    return 0;
+}

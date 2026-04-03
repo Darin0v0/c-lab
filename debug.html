@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Debug - C++ Compiler</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #111; color: #0f0; }
+        .log { margin: 5px 0; padding: 5px; border-left: 3px solid #0f0; }
+        .error { color: #f00; border-color: #f00; }
+        .success { color: #0f0; border-color: #0f0; }
+        #status { font-size: 24px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>Debug: C++ Compiler Connection</h1>
+    <div id="status">Status: <span id="statusText">Loading...</span></div>
+    <h3>Logs:</h3>
+    <div id="logs"></div>
+    
+    <script src="js/socket.io.min.js"></script>
+    <script>
+        const logs = document.getElementById('logs');
+        const statusText = document.getElementById('statusText');
+        
+        function log(msg, type) {
+            const div = document.createElement('div');
+            div.className = 'log ' + (type || '');
+            div.textContent = new Date().toISOString().split('T')[1].split('.')[0] + ' ' + msg;
+            logs.appendChild(div);
+            console.log(msg);
+        }
+        
+        log('Page loaded');
+        log('Socket.IO type: ' + typeof io);
+        
+        if (typeof io === 'undefined') {
+            log('ERROR: Socket.IO not loaded!', 'error');
+            statusText.textContent = 'ERROR - Socket.IO not loaded';
+            statusText.style.color = '#f00';
+        } else {
+            log('Socket.IO loaded successfully');
+            statusText.textContent = 'Socket.IO loaded';
+            
+            const socket = io(window.location.origin, {
+                transports: ['websocket', 'polling'],
+                reconnection: true
+            });
+            
+            socket.on('connect', () => {
+                log('CONNECTED! Socket ID: ' + socket.id, 'success');
+                statusText.textContent = 'ONLINE - Connected!';
+                statusText.style.color = '#0f0';
+                
+                // Register as student
+                socket.emit('register_student', {
+                    id: 'debug_user',
+                    firstName: 'Debug',
+                    lastName: 'User'
+                });
+            });
+            
+            socket.on('connect_error', (err) => {
+                log('Connection error: ' + err.message, 'error');
+                statusText.textContent = 'ERROR - ' + err.message;
+            });
+            
+            socket.on('disconnect', () => {
+                log('Disconnected', 'error');
+                statusText.textContent = 'OFFLINE';
+            });
+            
+            // Try to compile something
+            setTimeout(() => {
+                if (socket.connected) {
+                    log('Sending compile request...');
+                    socket.emit('compile_only', {
+                        code: '',
+                        jobId: 'test'
+                    });
+                } else {
+                    log('Not connected, cannot compile', 'error');
+                }
+            }, 2000);
+            
+            socket.on('compile_result', (data) => {
+                log('Compile result: success=' + data.success, data.success ? 'success' : '');
+            });
+        }
+    </script>
+</body>
+</html>
