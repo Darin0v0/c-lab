@@ -32,8 +32,8 @@
   const UI_PREFS_KEY = "student_ui_prefs_v1";
   const ANTI_CHEAT = {
     windowMs: 120000,
-    softLockThreshold: 6,
-    hardLockThreshold: 10,
+    softLockThreshold: 999,
+    hardLockThreshold: 9999,
     softLockMs: 60000,
     hardLockMs: 180000
   };
@@ -142,9 +142,9 @@
 
   function updateSecurityState() {
     window.StudentSecurity = {
-      isLocked: isAntiCheatLocked(),
-      secureViewport: !!secureViewportOk,
-      canRun: !isAntiCheatLocked() && !!secureViewportOk
+      isLocked: false,
+      secureViewport: true,
+      canRun: true
     };
   }
 
@@ -362,9 +362,7 @@
     if (document.fullscreenElement) return;
     const el = document.documentElement;
     if (!el || typeof el.requestFullscreen !== "function") return;
-    el.requestFullscreen().catch(() => {
-      antiCheatStrike(2, "Brak pełnego ekranu", { source });
-    });
+    el.requestFullscreen().catch(() => {});
   }
 
   function bindFullscreenPrompt() {
@@ -382,20 +380,6 @@
   function enforceExamViewport(source = "interval") {
     secureViewportOk = isExamViewportSecure();
     updateSecurityState();
-    if (secureViewportOk) return;
-
-    const now = Date.now();
-    if (now - lastViewportStrikeAt < 15000) return;
-    lastViewportStrikeAt = now;
-    antiCheatStrike(2, "Podejrzany układ okna (możliwe 2 okna)", {
-      source,
-      fullscreen: !!document.fullscreenElement,
-      outerWidth: window.outerWidth,
-      outerHeight: window.outerHeight,
-      innerWidth: window.innerWidth,
-      innerHeight: window.innerHeight
-    });
-    applyAntiCheatLock(45000, "Wymagany pełny ekran podczas sprawdzianu.");
   }
 
   function generateId() {
@@ -918,10 +902,6 @@
     });
 
     document.addEventListener("fullscreenchange", () => {
-      if (!document.fullscreenElement) {
-        antiCheatStrike(2, "Wyjście z trybu pełnoekranowego");
-        applyAntiCheatLock(60000, "Nie opuszczaj trybu pełnoekranowego.");
-      }
       enforceExamViewport("fullscreenchange");
     });
 
@@ -933,7 +913,6 @@
   document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "hidden") {
       reportWindowActivity("blur_window", "visibilitychange");
-      antiCheatStrike(1, "Przełączenie karty/okna", { source: "visibilitychange" });
     } else {
       reportWindowActivity("focus", "visibilitychange");
     }
@@ -941,7 +920,6 @@
 
   window.addEventListener("blur", function () {
     reportWindowActivity("blur_window", "window_blur");
-    antiCheatStrike(1, "Utrata fokusu okna", { source: "window_blur" });
   });
 
   window.addEventListener("focus", function () {

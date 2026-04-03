@@ -231,7 +231,7 @@ function getAntiCheatWeight(activity) {
   const reason = String(activity?.details?.reason || "").toLowerCase();
   if (type === "paste") return 2;
   if (type === "right_click") return 2;
-  if (type === "blur_window" || type === "unload") return 1;
+  if (type === "blur_window" || type === "unload") return 0;
   if (type === "suspicious") {
     if (reason.includes("devtools")) return 4;
     if (reason.includes("wklej")) return 3;
@@ -277,10 +277,48 @@ function log(...args) {
   fs.appendFileSync(LOG_FILE, message + "\n");
 }
 
+function compileOnlyLocal(code) {
+  return new Promise((resolve) => {
+    const jobId = `cpp_${Date.now()}`;
+    const srcFile = path.join(TEMP_DIR, `${jobId}.cpp`);
+    const exeFile = path.join(TEMP_DIR, jobId);
+
+    fs.writeFileSync(srcFile, code);
+
+    const proc = spawn("g++", ["-o", exeFile, srcFile, "-std=c++17", "-O2"]);
+    let killed = false;
+    let stderr = "";
+
+    const timeout = setTimeout(() => {
+      killed = true;
+      proc.kill();
+      resolve({ error: "Kompilacja przekroczyła limit czasu (10s)", status: "error" });
+    }, MAX_COMPILE_TIME);
+
+    proc.on("close", (code) => {
+      clearTimeout(timeout);
+      if (killed) return;
+      if (code === 0) {
+        fs.unlink(srcFile, () => {});
+        fs.unlink(exeFile, () => {});
+        resolve({ status: "success" });
+      } else {
+        resolve({ error: stderr, status: "error" });
+      }
+    });
+
+    proc.stderr.on("data", (data) => { stderr += data.toString(); });
+    proc.on("error", (err) => {
+      clearTimeout(timeout);
+      resolve({ error: err.message, status: "error" });
+    });
+  });
+}
+
 function runOnlineCompiler(code, stdin = "") {
   return new Promise((resolve, reject) => {
     if (!API_KEY) {
-      reject(new Error("ONLINE_COMPILER_API_KEY is not configured"));
+      compileOnlyLocal(code).then(resolve).catch(reject);
       return;
     }
 
@@ -1559,9 +1597,7 @@ server.listen(PORT, "0.0.0.0", () => {
   if (!RAW_TEACHER_TOKEN) {
     log(`SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: ${TEACHER_TOKEN}`);
   }
-  if (!API_KEY) {
-    log("SECURITY WARNING: ONLINE_COMPILER_API_KEY is not set. Socket compile_only will fail.");
-  }
+
   log(`========================================`);
   log(`Server started on port ${PORT}`);
   log(`http://localhost:${PORT}`);

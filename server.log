@@ -4789,3 +4789,165 @@
 [2026-04-03T18:38:31.130Z] Client connected: BMUfvo4Jqhcli4r0AAAB
 [2026-04-03T18:38:31.137Z] Teacher auth failed: BMUfvo4Jqhcli4r0AAAB
 [2026-04-03T18:39:03.827Z] Client disconnected: BMUfvo4Jqhcli4r0AAAB
+[2026-04-03T18:46:26.395Z] Uncaught Exception: listen EADDRINUSE: address already in use 0.0.0.0:3000
+[2026-04-03T18:47:32.212Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: 62c9a5a639ff5a650b10b386273ff9deaa21a55d615b34bb
+[2026-04-03T18:47:32.213Z] ========================================
+[2026-04-03T18:47:32.213Z] Server started on port 3000
+[2026-04-03T18:47:32.213Z] http://localhost:3000
+[2026-04-03T18:47:32.213Z] ========================================
+[2026-04-03T18:49:32.728Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: 58a0d6d079e4581eac3ce2f1ae97bfb06ad0401680c391ee
+[2026-04-03T18:49:32.729Z] ========================================
+[2026-04-03T18:49:32.729Z] Server started on port 3000
+[2026-04-03T18:49:32.729Z] http://localhost:3000
+[2026-04-03T18:49:32.729Z] ========================================
+[2026-04-03T18:49:41.116Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: 0a2dc324c70c4f5b7b2881ee9a1ac672b749f0f7213c5dcb
+[2026-04-03T18:49:41.116Z] ========================================
+[2026-04-03T18:49:41.116Z] Server started on port 3000
+[2026-04-03T18:49:41.116Z] http://localhost:3000
+[2026-04-03T18:49:41.116Z] ========================================
+[2026-04-03T18:49:53.710Z] Client connected: GOd4MuTtlTY2hKZ1AAAB
+[2026-04-03T18:49:53.728Z] Teacher connected: GOd4MuTtlTY2hKZ1AAAB
+[2026-04-03T18:49:57.395Z] All students removed by teacher (POST)
+[2026-04-03T18:50:03.841Z] Client connected: GDYzB17IpRDLj-jRAAAD
+[2026-04-03T18:50:04.346Z] register_student received: {"id":"s_1775242203806_neln7y2l7","firstName":"dawid","journalNum":"murias","className":"903"}
+[2026-04-03T18:50:04.347Z] Student registered: dawid
+[2026-04-03T18:50:05.537Z] Saved activities for student dawid
+[2026-04-03T18:50:05.539Z] Saved activities for student dawid
+[2026-04-03T18:50:08.042Z] Saved activities for student dawid
+[2026-04-03T18:50:08.042Z] Saved activities for student dawid
+[2026-04-03T18:50:08.043Z] ANTI-CHEAT warn: dawid (s_1775242203806_neln7y2l7) score=6
+[2026-04-03T18:50:15.391Z] Saved activities for student dawid
+[2026-04-03T18:50:15.644Z] Saved activities for student dawid
+[2026-04-03T18:50:15.645Z] Saved activities for student dawid
+[2026-04-03T18:50:15.646Z] ANTI-CHEAT lock: dawid (s_1775242203806_neln7y2l7) score=9
+[2026-04-03T18:50:15.946Z] Saved activities for student dawid
+[2026-04-03T18:50:18.950Z] Saved activities for student dawid
+[2026-04-03T18:50:18.951Z] Saved code for student dawid
+[2026-04-03T18:50:18.952Z] ANTI-CHEAT logout: dawid (s_1775242203806_neln7y2l7) score=15
+[2026-04-03T18:50:18.952Z] Student disconnected (now offline): dawid
+[2026-04-03T18:50:18.952Z] Client disconnected: GDYzB17IpRDLj-jRAAAD
+[2026-04-03T18:50:18.964Z] Saved code for student dawid
+[2026-04-03T18:50:18.964Z] Student logged out via API: s_1775242203806_neln7y2l7
+[2026-04-03T18:56:05.855Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: 96994f2a209a038132af64cff078edef71a89b5806a3d394
+[2026-04-03T18:56:05.855Z] ========================================
+[2026-04-03T18:56:05.855Z] Server started on port 3000
+[2026-04-03T18:56:05.856Z] http://localhost:3000
+[2026-04-03T18:56:05.856Z] ========================================
+[2026-04-03T18:56:11.070Z] Client connected: SubJbYIVZnFrJY0GAAAB
+[2026-04-03T18:56:11.083Z] Teacher auth failed: SubJbYIVZnFrJY0GAAAB
+[2026-04-03T18:56:56.076Z] Client disconnected: SubJbYIVZnFrJY0GAAAB
+[2026-04-03T18:59:27.573Z] Client connected: I2cNnLNZ_mRGWJOrAAAD
+[2026-04-03T18:59:28.096Z] register_student received: {"id":"s_1775242767545_vrm6z4wdw","firstName":"asfasf","journalNum":"asfasf","className":"asf"}
+[2026-04-03T18:59:28.097Z] Student registered: asfasf
+[2026-04-03T18:59:31.322Z] Saved activities for student asfasf
+[2026-04-03T18:59:31.323Z] Saved activities for student asfasf
+[2026-04-03T18:59:38.986Z] Uncaught Exception: listen EADDRINUSE: address already in use 0.0.0.0:3000
+[2026-04-03T18:59:42.853Z] Saved activities for student asfasf
+[2026-04-03T18:59:42.853Z] ANTI-CHEAT warn: asfasf (s_1775242767545_vrm6z4wdw) score=6
+[2026-04-03T18:59:48.954Z] Saved activities for student asfasf
+[2026-04-03T18:59:48.956Z] Saved activities for student asfasf
+[2026-04-03T18:59:48.956Z] ANTI-CHEAT lock: asfasf (s_1775242767545_vrm6z4wdw) score=9
+[2026-04-03T18:59:57.962Z] Saved activities for student asfasf
+[2026-04-03T18:59:57.963Z] ANTI-CHEAT warn: asfasf (s_1775242767545_vrm6z4wdw) score=12
+[2026-04-03T19:00:03.411Z] Saved activities for student asfasf
+[2026-04-03T19:00:06.411Z] Saved activities for student asfasf
+[2026-04-03T19:00:06.412Z] Saved activities for student asfasf
+[2026-04-03T19:00:06.412Z] Saved code for student asfasf
+[2026-04-03T19:00:06.413Z] ANTI-CHEAT logout: asfasf (s_1775242767545_vrm6z4wdw) score=15
+[2026-04-03T19:00:06.413Z] Student disconnected (now offline): asfasf
+[2026-04-03T19:00:06.413Z] Client disconnected: I2cNnLNZ_mRGWJOrAAAD
+[2026-04-03T19:00:06.422Z] Saved code for student asfasf
+[2026-04-03T19:00:06.423Z] Student logged out via API: s_1775242767545_vrm6z4wdw
+[2026-04-03T19:00:08.688Z] Uncaught Exception: listen EADDRINUSE: address already in use 0.0.0.0:3000
+[2026-04-03T19:02:36.840Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: 95e69f84f704bd77505cd74e450966f5287fcf996e296a24
+[2026-04-03T19:02:36.840Z] ========================================
+[2026-04-03T19:02:36.840Z] Server started on port 3000
+[2026-04-03T19:02:36.840Z] http://localhost:3000
+[2026-04-03T19:02:36.841Z] ========================================
+[2026-04-03T19:03:31.547Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: 90670477b7a8e43dac9e87a408a15972ba3b531b38fcb892
+[2026-04-03T19:03:31.548Z] ========================================
+[2026-04-03T19:03:31.548Z] Server started on port 3000
+[2026-04-03T19:03:31.548Z] http://localhost:3000
+[2026-04-03T19:03:31.548Z] ========================================
+[2026-04-03T19:03:38.515Z] Client connected: cVaUC5F6jYcLpuo8AAAB
+[2026-04-03T19:03:41.064Z] Teacher connected: cVaUC5F6jYcLpuo8AAAB
+[2026-04-03T19:03:41.081Z] Teacher connected: cVaUC5F6jYcLpuo8AAAB
+[2026-04-03T19:03:45.195Z] Database cleared by teacher
+[2026-04-03T19:03:52.380Z] Client connected: jTP_1LTuB7MTmAklAAAD
+[2026-04-03T19:03:52.957Z] register_student received: {"id":"s_1775243032304_ba5s88u5o","firstName":"asg","journalNum":"asf","className":"asf"}
+[2026-04-03T19:03:52.958Z] Student registered: asg
+[2026-04-03T19:03:54.066Z] Saved activities for student asg
+[2026-04-03T19:03:55.270Z] Saved activities for student asg
+[2026-04-03T19:03:55.271Z] Saved activities for student asg
+[2026-04-03T19:03:55.271Z] ANTI-CHEAT warn: asg (s_1775243032304_ba5s88u5o) score=6
+[2026-04-03T19:04:07.380Z] Saved activities for student asg
+[2026-04-03T19:04:07.381Z] ANTI-CHEAT lock: asg (s_1775243032304_ba5s88u5o) score=9
+[2026-04-03T19:04:17.635Z] Saved activities for student asg
+[2026-04-03T19:04:17.637Z] Saved activities for student asg
+[2026-04-03T19:04:17.637Z] ANTI-CHEAT warn: asg (s_1775243032304_ba5s88u5o) score=12
+[2026-04-03T19:04:22.649Z] Saved activities for student asg
+[2026-04-03T19:04:22.650Z] Saved code for student asg
+[2026-04-03T19:04:22.651Z] ANTI-CHEAT logout: asg (s_1775243032304_ba5s88u5o) score=15
+[2026-04-03T19:04:22.652Z] Student disconnected (now offline): asg
+[2026-04-03T19:04:22.652Z] Client disconnected: jTP_1LTuB7MTmAklAAAD
+[2026-04-03T19:04:22.669Z] Saved code for student asg
+[2026-04-03T19:04:22.670Z] Student logged out via API: s_1775243032304_ba5s88u5o
+[2026-04-03T19:26:26.006Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: 0d6a175fee198bac58357a6678c1a90266254c2ae581bf30
+[2026-04-03T19:26:26.006Z] ========================================
+[2026-04-03T19:26:26.006Z] Server started on port 3000
+[2026-04-03T19:26:26.006Z] http://localhost:3000
+[2026-04-03T19:26:26.006Z] ========================================
+[2026-04-03T19:27:00.046Z] Client connected: 0IBISoeUYUZ7vHZ2AAAB
+[2026-04-03T19:27:00.076Z] Teacher auth failed: 0IBISoeUYUZ7vHZ2AAAB
+[2026-04-03T19:27:00.335Z] Client connected: _UCPROIFQtDxj5eAAAAD
+[2026-04-03T19:27:00.845Z] register_student received: {"id":"s_1775244391176_fakv5iufs","firstName":"safd","journalNum":"asf","className":"asf"}
+[2026-04-03T19:27:00.846Z] Student registered: safd
+[2026-04-03T19:27:45.084Z] Client disconnected: 0IBISoeUYUZ7vHZ2AAAB
+[2026-04-03T19:28:10.571Z] Saved activities for student safd
+[2026-04-03T19:28:15.144Z] Saved activities for student safd
+[2026-04-03T19:30:35.673Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: d55848b71aa29b27a20171f31a65b6aba89f02336b5bd7ec
+[2026-04-03T19:30:35.674Z] ========================================
+[2026-04-03T19:30:35.674Z] Server started on port 3000
+[2026-04-03T19:30:35.674Z] http://localhost:3000
+[2026-04-03T19:30:35.674Z] ========================================
+[2026-04-03T19:30:39.314Z] Uncaught Exception: listen EADDRINUSE: address already in use 0.0.0.0:3000
+[2026-04-03T19:34:15.153Z] Uncaught Exception: listen EADDRINUSE: address already in use 0.0.0.0:3000
+[2026-04-03T19:34:38.848Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: 14ca6e135894dcf3f3b4e16148636b081514ad84b69b562d
+[2026-04-03T19:34:38.848Z] ========================================
+[2026-04-03T19:34:38.848Z] Server started on port 3000
+[2026-04-03T19:34:38.848Z] http://localhost:3000
+[2026-04-03T19:34:38.848Z] ========================================
+[2026-04-03T19:34:41.741Z] Client connected: 3j02-4r7pkH9u02_AAAC
+[2026-04-03T19:34:41.756Z] Teacher auth failed: 3j02-4r7pkH9u02_AAAC
+[2026-04-03T19:35:26.762Z] Client disconnected: 3j02-4r7pkH9u02_AAAC
+[2026-04-03T19:36:28.384Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: 86946b94186af70b58319d0f56d8b70cc64b9f8c270cb413
+[2026-04-03T19:36:28.385Z] ========================================
+[2026-04-03T19:36:28.385Z] Server started on port 3000
+[2026-04-03T19:36:28.385Z] http://localhost:3000
+[2026-04-03T19:36:28.385Z] ========================================
+[2026-04-03T19:36:33.824Z] Client connected: fBowGW64v4d2B7BVAAAB
+[2026-04-03T19:36:33.824Z] Teacher connected: fBowGW64v4d2B7BVAAAB
+[2026-04-03T19:36:33.850Z] Teacher connected: fBowGW64v4d2B7BVAAAB
+[2026-04-03T19:36:37.645Z] All students removed by teacher (POST)
+[2026-04-03T19:37:05.532Z] Client connected: -oO_V9dlEzZHRVY8AAAD
+[2026-04-03T19:37:06.039Z] register_student received: {"id":"s_1775245025492_728648vxc","firstName":"asf","journalNum":"asd","className":"asd"}
+[2026-04-03T19:37:06.040Z] Student registered: asf
+[2026-04-03T19:37:08.531Z] Saved activities for student asf
+[2026-04-03T19:37:08.532Z] Saved activities for student asf
+[2026-04-03T19:37:08.535Z] Saved code for student asf
+[2026-04-03T19:37:08.535Z] Saved info for student asf
+[2026-04-03T19:37:08.536Z] Saved activities for student asf
+[2026-04-03T19:37:08.538Z] Student disconnected (now offline): asf
+[2026-04-03T19:37:08.538Z] Client disconnected: -oO_V9dlEzZHRVY8AAAD
+[2026-04-03T19:37:08.676Z] Client connected: bFqEEsS2n8sOhMpGAAAF
+[2026-04-03T19:37:09.193Z] register_student received: {"id":"s_1775245025492_728648vxc","firstName":"asf","journalNum":"asd","className":"asd"}
+[2026-04-03T19:37:09.194Z] Student registered: asf
+[2026-04-03T19:37:11.256Z] Saved activities for student asf
+[2026-04-03T19:37:12.062Z] Saved activities for student asf
+[2026-04-03T19:37:15.328Z] Saved activities for student asf
+[2026-04-03T19:39:35.197Z] Client disconnected: fBowGW64v4d2B7BVAAAB
+[2026-04-03T19:39:35.324Z] Client connected: Tnpuz3ZiGv5uy-1MAAAH
+[2026-04-03T19:39:35.352Z] Teacher connected: Tnpuz3ZiGv5uy-1MAAAH
+[2026-04-03T19:39:52.163Z] Student disconnected (now offline): asf
+[2026-04-03T19:39:52.164Z] Client disconnected: bFqEEsS2n8sOhMpGAAAF
+[2026-04-03T19:39:52.164Z] Database cleared by teacher

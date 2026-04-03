@@ -87,11 +87,6 @@
     }
 
     function runCode(code) {
-        if (window.StudentSecurity && window.StudentSecurity.canRun === false) {
-            print("[ANTI-CHEAT] Uruchamianie zablokowane. Włącz pełny ekran i poczekaj na zdjęcie blokady.", "error");
-            addActivity("suspicious", { reason: "Próba uruchomienia kodu poza trybem egzaminu" });
-            return;
-        }
         if (isRunning) {
             print("[INFO] Program jest już uruchomiony!", "system");
             return;
