@@ -1,0 +1,59 @@
+{
+  "students": [],
+  "activities": {
+    "s_1774461756673_5g2bgsosz": [
+      {
+        "ts": 1774466740727,
+        "type": "focus",
+        "details": {
+          "source": "window_focus",
+          "platform": "linux x86_64"
+        },
+        "studentName": "asf"
+      },
+      {
+        "ts": 1774466743877,
+        "type": "logout",
+        "details": {},
+        "studentName": "asf"
+      },
+      {
+        "ts": 1774466743897,
+        "type": "blur_window",
+        "details": {
+          "source": "window_blur",
+          "platform": "linux x86_64"
+        },
+        "studentName": "asf"
+      },
+      {
+        "ts": 1774466743898,
+        "type": "focus",
+        "details": {
+          "source": "window_focus",
+          "platform": "linux x86_64"
+        },
+        "studentName": "asf"
+      },
+      {
+        "ts": 1774466744545,
+        "type": "blur_window",
+        "details": {
+          "source": "window_blur",
+          "platform": "linux x86_64"
+        },
+        "studentName": "asf"
+      },
+      {
+        "ts": 1774466745912,
+        "type": "blur_window",
+        "details": {
+          "source": "visibilitychange",
+          "platform": "linux x86_64"
+        },
+        "studentName": "Nieznany"
+      }
+    ]
+  },
+  "submissions": []
+}

@@ -1,0 +1,1609 @@
+<!doctype html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Student IDE - C++ Compiler</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --bg-dark: #1e1e1e;
+                --bg-darkest: #252526;
+                --bg-darker: #2d2d30;
+                --bg-panel: #333333;
+                --border-color: #3c3c3c;
+                --text-primary: #cccccc;
+                --text-secondary: #858585;
+                --accent-blue: #007acc;
+                --accent-green: #4ec9b0;
+                --accent-orange: #ce9178;
+                --accent-purple: #c586c0;
+                --accent-yellow: #dcdcaa;
+                --accent-red: #f14c4c;
+                --accent-cyan: #9cdcfe;
+            }
+
+            body {
+                font-family:
+                    "Inter",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    sans-serif;
+                background: var(--bg-dark);
+                color: var(--text-primary);
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+
+            /* ========== TITLE BAR ========== */
+            .titlebar {
+                height: 30px;
+                background: var(--bg-darkest);
+                border-bottom: 1px solid var(--border-color);
+                display: flex;
+                align-items: center;
+                padding: 0 10px;
+                -webkit-app-region: drag;
+            }
+
+            .titlebar-title {
+                flex: 1;
+                text-align: center;
+                font-size: 12px;
+                color: var(--text-secondary);
+            }
+
+            .titlebar-title span {
+                color: var(--accent-blue);
+            }
+
+            .window-controls {
+                display: flex;
+                gap: 8px;
+            }
+
+            .window-btn {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                border: none;
+                cursor: pointer;
+            }
+
+            .window-btn.minimize {
+                background: #f1c40f;
+            }
+            .window-btn.maximize {
+                background: #2ecc71;
+            }
+            .window-btn.close {
+                background: #e74c3c;
+            }
+
+            /* ========== TOOLBAR ========== */
+            .toolbar {
+                height: 38px;
+                background: var(--bg-darker);
+                border-bottom: 1px solid var(--border-color);
+                display: flex;
+                align-items: center;
+                padding: 0 12px;
+                gap: 6px;
+            }
+
+            .toolbar-btn {
+                height: 26px;
+                padding: 0 12px;
+                background: transparent;
+                border: 1px solid transparent;
+                color: var(--text-primary);
+                font-size: 12px;
+                border-radius: 4px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                transition: all 0.15s;
+            }
+
+            .toolbar-btn:hover {
+                background: var(--bg-panel);
+                border-color: var(--border-color);
+            }
+
+            .toolbar-btn.primary {
+                background: var(--accent-blue);
+                color: white;
+                border-color: var(--accent-blue);
+            }
+
+            .toolbar-btn.primary:hover {
+                background: #1a8ad4;
+            }
+
+            .toolbar-btn.danger {
+                background: #3c3c3c;
+                color: var(--accent-red);
+                border-color: var(--accent-red);
+            }
+
+            .toolbar-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            .toolbar-separator {
+                width: 1px;
+                height: 20px;
+                background: var(--border-color);
+                margin: 0 6px;
+            }
+
+            .theme-picker {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .theme-picker-label {
+                font-size: 11px;
+                color: var(--text-secondary);
+            }
+
+            .theme-select {
+                height: 26px;
+                min-width: 120px;
+                padding: 0 8px;
+                border: 1px solid var(--border-color);
+                background: var(--bg-dark);
+                color: var(--text-primary);
+                border-radius: 4px;
+                font-size: 12px;
+                outline: none;
+            }
+
+            .theme-select:focus {
+                border-color: var(--accent-blue);
+            }
+
+            .toolbar-spacer {
+                flex: 1;
+            }
+
+            .user-info {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 0 12px;
+            }
+
+            .user-name {
+                font-size: 12px;
+                color: var(--text-secondary);
+            }
+
+            .status-badge {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 11px;
+                padding: 3px 10px;
+                border-radius: 12px;
+                background: var(--bg-panel);
+            }
+
+            .status-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--accent-red);
+            }
+
+            .status-dot.online {
+                background: #4caf50;
+            }
+            .status-dot.error {
+                background: var(--accent-red);
+            }
+
+            .compile-indicator {
+                font-family: "JetBrains Mono", monospace;
+                font-size: 11px;
+                padding: 2px 8px;
+                border-radius: 3px;
+                background: var(--bg-panel);
+                color: var(--text-secondary);
+            }
+
+            .compile-indicator.success {
+                color: #4caf50;
+            }
+            .compile-indicator.error {
+                color: var(--accent-red);
+            }
+
+            /* ========== MAIN LAYOUT ========== */
+            .main {
+                flex: 1;
+                display: flex;
+                overflow: hidden;
+            }
+
+            /* ========== SIDEBAR ========== */
+            .sidebar {
+                width: 50px;
+                background: var(--bg-darkest);
+                border-right: 1px solid var(--border-color);
+                display: flex;
+                flex-direction: column;
+                padding: 8px 0;
+            }
+
+            .sidebar-btn {
+                width: 40px;
+                height: 40px;
+                margin: 2px auto;
+                background: transparent;
+                border: none;
+                color: var(--text-secondary);
+                font-size: 20px;
+                cursor: pointer;
+                border-radius: 4px;
+                transition: all 0.15s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .sidebar-btn:hover {
+                background: var(--bg-panel);
+                color: var(--text-primary);
+            }
+
+            .sidebar-btn.active {
+                background: var(--bg-panel);
+                color: var(--accent-blue);
+                border-left: 2px solid var(--accent-blue);
+            }
+
+            .sidebar-spacer {
+                flex: 1;
+            }
+
+            /* ========== EDITOR AREA ========== */
+            .editor-area {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+
+            /* ========== TABS ========== */
+            .tabs {
+                height: 35px;
+                background: var(--bg-darkest);
+                border-bottom: 1px solid var(--border-color);
+                display: flex;
+                align-items: flex-end;
+                overflow-x: auto;
+            }
+
+            .tab {
+                height: 34px;
+                padding: 0 16px;
+                background: var(--bg-darker);
+                border-right: 1px solid var(--border-color);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 13px;
+                color: var(--text-secondary);
+                cursor: pointer;
+                transition: all 0.15s;
+                min-width: 120px;
+                max-width: 200px;
+            }
+
+            .tab:hover {
+                background: var(--bg-panel);
+                color: var(--text-primary);
+            }
+
+            .tab.active {
+                background: var(--bg-dark);
+                color: var(--text-primary);
+                border-bottom: 1px solid var(--bg-dark);
+                margin-bottom: -1px;
+            }
+
+            .tab-icon {
+                font-size: 14px;
+            }
+
+            .tab-name {
+                flex: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .tab-close {
+                width: 16px;
+                height: 16px;
+                border-radius: 3px;
+                background: transparent;
+                border: none;
+                color: var(--text-secondary);
+                cursor: pointer;
+                font-size: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+            }
+
+            .tab:hover .tab-close {
+                opacity: 1;
+            }
+
+            .tab-close:hover {
+                background: var(--bg-panel);
+                color: var(--text-primary);
+            }
+
+            /* ========== EDITOR CONTENT ========== */
+            .editor-content {
+                flex: 1;
+                display: flex;
+                background: var(--bg-dark);
+                overflow: hidden;
+            }
+
+            .code-area {
+                flex: 1;
+                position: relative;
+                overflow: hidden;
+            }
+
+            #editor {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                font-size: 14px;
+            }
+
+            .CodeMirror {
+                height: 100% !important;
+                font-family: "JetBrains Mono", monospace !important;
+                font-size: 14px !important;
+                line-height: 21px !important;
+                background: #1e1e1e !important;
+            }
+
+            .CodeMirror-gutters {
+                background: #1e1e1e !important;
+                border-right: 1px solid #3c3c3c !important;
+            }
+
+            .CodeMirror-linenumber {
+                color: #858585 !important;
+            }
+
+            .cm-s-default .cm-keyword {
+                color: #569cd6 !important;
+            }
+            .cm-s-default .cm-atom {
+                color: #569cd6 !important;
+            }
+            .cm-s-default .cm-type {
+                color: #4ec9b0 !important;
+            }
+            .cm-s-default .cm-string {
+                color: #ce9178 !important;
+            }
+            .cm-s-default .cm-string-2 {
+                color: #ce9178 !important;
+            }
+            .cm-s-default .cm-number {
+                color: #b5cea8 !important;
+            }
+            .cm-s-default .cm-def {
+                color: #dcdcaa !important;
+            }
+            .cm-s-default .cm-variable {
+                color: #9cdcfe !important;
+            }
+            .cm-s-default .cm-variable-2 {
+                color: #9cdcfe !important;
+            }
+            .cm-s-default .cm-comment {
+                color: #6a9955 !important;
+                font-style: italic;
+            }
+            .cm-s-default .cm-operator {
+                color: #d4d4d4 !important;
+            }
+            .cm-s-default .cm-meta {
+                color: #c586c0 !important;
+            }
+            .cm-s-default .cm-qualifier {
+                color: #4ec9b0 !important;
+            }
+            .cm-s-default .cm-property {
+                color: #9cdcfe !important;
+            }
+            .cm-s-default .cm-error {
+                background: rgba(255, 0, 0, 0.1);
+            }
+
+            .CodeMirror .error-line {
+                background: rgba(241, 76, 76, 0.2) !important;
+            }
+
+            .CodeMirror .cm-selection-background,
+            .CodeMirror .CodeMirror-selected,
+            .CodeMirror.CodeMirror-focused .cm-selectionBackground,
+            .CodeMirror .cm-selectionBackground {
+                background: rgba(88, 166, 255, 0.4) !important;
+            }
+
+            .CodeMirror .cm-activeLine {
+                background: rgba(88, 166, 255, 0.2) !important;
+            }
+
+            .CodeMirror .cm-cursor {
+                border-left-color: #7ab8ff !important;
+            }
+
+            .CodeMirror .CodeMirror-activeline-background {
+                background: rgba(88, 166, 255, 0.2) !important;
+            }
+
+            .CodeMirror .CodeMirror-activeline .CodeMirror-gutter-elt {
+                background: rgba(88, 166, 255, 0.2) !important;
+            }
+
+            #editor .CodeMirror-focused {
+                outline: none !important;
+            }
+
+            /* ========== TERMINAL ========== */
+            .terminal-panel {
+                height: 250px;
+                background: var(--bg-darkest);
+                border-top: 1px solid var(--border-color);
+                display: flex;
+                flex-direction: column;
+                resize: vertical;
+                overflow: hidden;
+            }
+
+            .terminal-header {
+                height: 32px;
+                background: var(--bg-darker);
+                border-bottom: 1px solid var(--border-color);
+                display: flex;
+                align-items: center;
+                padding: 0 12px;
+                gap: 16px;
+            }
+
+            .terminal-tab {
+                padding: 6px 12px;
+                font-size: 12px;
+                color: var(--text-secondary);
+                cursor: pointer;
+                border-bottom: 2px solid transparent;
+            }
+
+            .terminal-tab.active {
+                color: var(--text-primary);
+                border-bottom-color: var(--accent-blue);
+            }
+
+            .terminal-actions {
+                margin-left: auto;
+                display: flex;
+                gap: 4px;
+            }
+
+            .terminal-action-btn {
+                width: 24px;
+                height: 24px;
+                background: transparent;
+                border: none;
+                color: var(--text-secondary);
+                cursor: pointer;
+                border-radius: 3px;
+                font-size: 14px;
+            }
+
+            .terminal-action-btn:hover {
+                background: var(--bg-panel);
+                color: var(--text-primary);
+            }
+
+            .terminal-body {
+                flex: 1;
+                padding: 12px 16px;
+                overflow-y: auto;
+                font-family: "JetBrains Mono", monospace;
+                font-size: 13px;
+                line-height: 1.5;
+                background: #141414;
+            }
+
+            .terminal-body::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            .terminal-body::-webkit-scrollbar-track {
+                background: #0d0d0d;
+            }
+
+            .terminal-body::-webkit-scrollbar-thumb {
+                background: var(--bg-panel);
+                border-radius: 5px;
+            }
+
+            .line {
+                margin: 2px 0;
+                white-space: pre-wrap;
+                word-break: break-all;
+            }
+
+            .line.stdin {
+                color: #4fc1ff;
+            }
+            .line.stdout {
+                color: var(--text-primary);
+            }
+            .line.error {
+                color: var(--accent-red);
+            }
+            .line.success {
+                color: #4caf50;
+                font-weight: 500;
+            }
+            .line.system {
+                color: var(--text-secondary);
+                font-size: 12px;
+                margin: 8px 0;
+            }
+            .line.warning {
+                color: #f9a825;
+            }
+            .line.divider {
+                color: var(--border-color);
+                margin: 4px 0;
+            }
+
+            .cursor {
+                display: inline-block;
+                width: 8px;
+                height: 18px;
+                background: var(--accent-cyan);
+                animation: blink 1s step-end infinite;
+                vertical-align: middle;
+            }
+
+            @keyframes blink {
+                50% {
+                    opacity: 0;
+                }
+            }
+
+            .terminal-input-area {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 12px;
+                background: var(--bg-darker);
+                border-top: 1px solid var(--border-color);
+            }
+
+            .prompt {
+                font-family: "JetBrains Mono", monospace;
+                font-size: 13px;
+                color: var(--accent-green);
+                font-weight: 600;
+            }
+
+            .prompt.waiting {
+                animation: blink 1s infinite;
+            }
+
+            @keyframes blink {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.5;
+                }
+            }
+
+            #terminalInput {
+                flex: 1;
+                background: var(--bg-dark);
+                border: 1px solid var(--border-color);
+                color: var(--text-primary);
+                padding: 8px 12px;
+                font-family: "JetBrains Mono", monospace;
+                font-size: 13px;
+                outline: none;
+                border-radius: 3px;
+            }
+
+            #terminalInput:focus {
+                border-color: var(--accent-blue);
+            }
+
+            #terminalInput::placeholder {
+                color: var(--text-secondary);
+            }
+
+            .terminal-btn {
+                padding: 8px 16px;
+                border-radius: 3px;
+                border: none;
+                font-size: 12px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.15s;
+            }
+
+            .terminal-btn.run {
+                background: #4caf50;
+                color: white;
+            }
+
+            .terminal-btn.run:hover {
+                background: #5cbf60;
+            }
+
+            .terminal-btn.stop {
+                background: var(--accent-red);
+                color: white;
+                display: none;
+            }
+
+            .terminal-btn.stop.active {
+                display: inline-block;
+            }
+
+            /* ========== STATUS BAR ========== */
+            .statusbar {
+                height: 22px;
+                background: var(--accent-blue);
+                display: flex;
+                align-items: center;
+                padding: 0 8px;
+                font-size: 11px;
+                color: white;
+                gap: 16px;
+            }
+
+            .statusbar-item {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+            }
+
+            .statusbar-spacer {
+                flex: 1;
+            }
+
+            /* ========== DROPDOWN ========== */
+            .dropdown {
+                position: relative;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: var(--bg-darker);
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+                min-width: 200px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                z-index: 100;
+                margin-top: 4px;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropdown-item {
+                padding: 8px 16px;
+                font-size: 12px;
+                color: var(--text-primary);
+                cursor: pointer;
+                transition: background 0.15s;
+            }
+
+            .dropdown-item:hover {
+                background: var(--bg-panel);
+            }
+
+            /* ========== MODAL ========== */
+            .modal-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 1000;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .modal-overlay.active {
+                display: flex;
+            }
+
+            .modal {
+                background: var(--bg-darker);
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                padding: 24px;
+                min-width: 300px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            }
+
+            .modal h3 {
+                font-size: 16px;
+                margin-bottom: 16px;
+                color: var(--text-primary);
+            }
+
+            .modal input {
+                width: 100%;
+                padding: 10px 14px;
+                background: var(--bg-dark);
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+                color: var(--text-primary);
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+
+            .modal input:focus {
+                border-color: var(--accent-blue);
+                outline: none;
+            }
+
+            .modal-actions {
+                display: flex;
+                gap: 8px;
+                justify-content: flex-end;
+                margin-top: 16px;
+            }
+
+            .modal-btn {
+                padding: 8px 20px;
+                border-radius: 4px;
+                border: none;
+                font-size: 13px;
+                cursor: pointer;
+            }
+
+            .modal-btn.primary {
+                background: var(--accent-blue);
+                color: white;
+            }
+
+            .modal-btn.secondary {
+                background: var(--bg-panel);
+                color: var(--text-primary);
+            }
+
+            /* ========== NOTIFICATIONS ========== */
+            .notification {
+                position: fixed;
+                bottom: 30px;
+                right: 20px;
+                padding: 12px 20px;
+                background: var(--bg-darker);
+                border: 1px solid var(--border-color);
+                border-radius: 6px;
+                font-size: 13px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+                transform: translateX(120%);
+                transition: transform 0.3s ease;
+                z-index: 2000;
+            }
+
+            .notification.show {
+                transform: translateX(0);
+            }
+
+            .notification.success {
+                border-left: 3px solid #4caf50;
+            }
+
+            .notification.error {
+                border-left: 3px solid var(--accent-red);
+            }
+
+            .autocomplete-box::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .autocomplete-box::-webkit-scrollbar-track {
+                background: #1e1e1e;
+            }
+
+            .autocomplete-box::-webkit-scrollbar-thumb {
+                background: #3c3c3c;
+                border-radius: 4px;
+            }
+
+            .autocomplete-item:last-child {
+                border-bottom: none !important;
+            }
+
+            /* ========== RESPONSIVE ========== */
+            @media (max-width: 768px) {
+                .sidebar {
+                    width: 40px;
+                }
+                .toolbar {
+                    padding: 0 8px;
+                }
+                .toolbar-btn span {
+                    display: none;
+                }
+                .theme-picker-label {
+                    display: none;
+                }
+                .theme-select {
+                    min-width: 92px;
+                }
+            }
+
+            /* ========== MODERN POLISH OVERRIDE ========== */
+            :root {
+                --bg-dark: #1e1e1e;
+                --bg-darkest: #252526;
+                --bg-darker: #2d2d30;
+                --bg-panel: #333333;
+                --border-color: #3c3c3c;
+                --text-primary: #d4d4d4;
+                --text-secondary: #9da3ad;
+                --accent-blue: #3b82f6;
+                --accent-green: #22c55e;
+                --accent-red: #ef4444;
+                --accent-cyan: #38bdf8;
+            }
+
+            body {
+                background: var(--bg-dark);
+            }
+
+            .titlebar,
+            .toolbar,
+            .terminal-header,
+            .terminal-input-area {
+                background: var(--bg-darker);
+                border-color: var(--border-color);
+                backdrop-filter: none;
+            }
+
+            .toolbar-btn,
+            .terminal-btn,
+            #terminalInput {
+                border-radius: 4px;
+            }
+
+            .toolbar-btn {
+                border: 1px solid transparent;
+                background: transparent;
+            }
+
+            .toolbar-btn:hover {
+                background: var(--bg-panel);
+                border-color: var(--border-color);
+            }
+
+            .toolbar-btn.primary {
+                background: var(--accent-blue);
+                border-color: var(--accent-blue);
+                box-shadow: none;
+            }
+
+            .toolbar-btn.primary:hover {
+                background: #1d4ed8;
+            }
+
+            .toolbar-btn.danger {
+                background: transparent;
+                border-color: var(--accent-red);
+                color: #fca5a5;
+            }
+
+            .toolbar-btn.danger:hover {
+                background: rgba(239, 68, 68, 0.12);
+                border-color: #ef4444;
+            }
+
+            .status-badge,
+            .compile-indicator {
+                background: var(--bg-panel);
+                border: 1px solid var(--border-color);
+            }
+
+            .main,
+            .editor-area,
+            .code-area,
+            .terminal-panel {
+                min-height: 0;
+            }
+
+            .editor-content,
+            .terminal-panel {
+                border: 1px solid var(--border-color);
+                border-radius: 0;
+                margin: 0;
+                overflow: hidden;
+                box-shadow: none;
+            }
+
+            .terminal-body {
+                background: #1e1e1e;
+            }
+
+            #terminalInput {
+                background: var(--bg-dark);
+                border-color: var(--border-color);
+            }
+
+            #terminalInput:focus {
+                border-color: var(--accent-blue);
+                box-shadow: none;
+            }
+
+            .notification {
+                border-radius: 4px;
+                background: var(--bg-darker);
+                border-color: var(--border-color);
+            }
+
+            .statusbar {
+                background: #007acc;
+                border-top: 1px solid #007acc;
+            }
+
+            body[data-theme="dark"] {
+                --bg-dark: #1e1e1e;
+                --bg-darkest: #252526;
+                --bg-darker: #2d2d30;
+                --bg-panel: #333333;
+                --border-color: #3c3c3c;
+                --text-primary: #d4d4d4;
+                --text-secondary: #9da3ad;
+                --accent-blue: #007acc;
+                --accent-red: #ef4444;
+                --editor-bg: #1e1e1e;
+                --editor-gutter-bg: #1e1e1e;
+                --editor-ln: #858585;
+                --terminal-bg: #1e1e1e;
+            }
+
+            body[data-theme="light"] {
+                --bg-dark: #f3f4f6;
+                --bg-darkest: #ffffff;
+                --bg-darker: #f8fafc;
+                --bg-panel: #eef2f7;
+                --border-color: #d1d5db;
+                --text-primary: #111827;
+                --text-secondary: #6b7280;
+                --accent-blue: #2563eb;
+                --accent-red: #dc2626;
+                --editor-bg: #ffffff;
+                --editor-gutter-bg: #f9fafb;
+                --editor-ln: #6b7280;
+                --terminal-bg: #ffffff;
+            }
+
+            body[data-theme="contrast"] {
+                --bg-dark: #000000;
+                --bg-darkest: #0a0a0a;
+                --bg-darker: #111111;
+                --bg-panel: #1a1a1a;
+                --border-color: #666666;
+                --text-primary: #ffffff;
+                --text-secondary: #e5e7eb;
+                --accent-blue: #00b7ff;
+                --accent-red: #ff4d4d;
+                --editor-bg: #000000;
+                --editor-gutter-bg: #0a0a0a;
+                --editor-ln: #d1d5db;
+                --terminal-bg: #000000;
+            }
+
+            body[data-theme="nord"] {
+                --bg-dark: #2e3440;
+                --bg-darkest: #3b4252;
+                --bg-darker: #434c5e;
+                --bg-panel: #4c566a;
+                --border-color: #5e6b80;
+                --text-primary: #eceff4;
+                --text-secondary: #d8dee9;
+                --accent-blue: #88c0d0;
+                --accent-red: #bf616a;
+                --editor-bg: #2e3440;
+                --editor-gutter-bg: #3b4252;
+                --editor-ln: #d8dee9;
+                --terminal-bg: #2b313d;
+            }
+
+            body[data-theme="midnight"] {
+                --bg-dark: #0b1020;
+                --bg-darkest: #101938;
+                --bg-darker: #16224c;
+                --bg-panel: #1f2f66;
+                --border-color: #2d4287;
+                --text-primary: #e6ecff;
+                --text-secondary: #bdc8f0;
+                --accent-blue: #4f8cff;
+                --accent-red: #ff6b7a;
+                --editor-bg: #0d1530;
+                --editor-gutter-bg: #101a38;
+                --editor-ln: #c6d2fa;
+                --terminal-bg: #0b122a;
+            }
+
+            body[data-theme="solarized"] {
+                --bg-dark: #fdf6e3;
+                --bg-darkest: #f5efdc;
+                --bg-darker: #eee8d5;
+                --bg-panel: #e6ddc7;
+                --border-color: #c7bea9;
+                --text-primary: #073642;
+                --text-secondary: #586e75;
+                --accent-blue: #268bd2;
+                --accent-red: #dc322f;
+                --editor-bg: #fffdf4;
+                --editor-gutter-bg: #f5efdc;
+                --editor-ln: #657b83;
+                --terminal-bg: #fffdf4;
+            }
+
+            .CodeMirror {
+                background: var(--editor-bg) !important;
+            }
+
+            .CodeMirror-gutters {
+                background: var(--editor-gutter-bg) !important;
+            }
+
+            .CodeMirror-linenumber {
+                color: var(--editor-ln) !important;
+            }
+
+            .terminal-body {
+                background: var(--terminal-bg);
+            }
+
+            @media (max-width: 768px) {
+                .user-info {
+                    display: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <noscript>
+            <div style="position:fixed;inset:0;z-index:99999;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font:700 22px/1.4 Arial,sans-serif;padding:24px;text-align:center;">
+                włacz js ideito
+            </div>
+        </noscript>
+        <!-- Title Bar -->
+        <div class="titlebar">
+            <div class="titlebar-title">
+                Student IDE - <span>C++ Compiler</span>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="dropdown">
+                <button class="toolbar-btn">
+                    <span>📁</span>
+                    <span>File</span>
+                </button>
+                <div class="dropdown-content">
+                    <div
+                        style="
+                            padding: 8px 16px;
+                            font-size: 11px;
+                            color: #858585;
+                        "
+                    >
+                        PRZYKŁADY
+                    </div>
+                    <div
+                        class="dropdown-item"
+                        onclick="loadExample('przyklad1.txt', 'Kalkulator')"
+                    >
+                        Grupa 1
+                    </div>
+                    <div
+                        class="dropdown-item"
+                        onclick="loadExample('przyklad2.txt', 'Studenci')"
+                    >
+                        Grupa 2
+                    </div>
+                    <div
+                        style="height: 1px; background: #3c3c3c; margin: 6px 0"
+                    ></div>
+                    <div class="dropdown-item" onclick="newFile()">
+                        ➕ Nowy plik
+                    </div>
+                    <div class="dropdown-item" onclick="downloadCode()">
+                        💾 Pobierz kod
+                    </div>
+                    <div class="dropdown-item" onclick="downloadLogs()">
+                        🧾 Pobierz logi
+                    </div>
+                    <div class="dropdown-item" onclick="downloadCodeAndLogs()">
+                        📦 Pobierz kod + logi
+                    </div>
+                    <div class="dropdown-item" onclick="clearEditor()">
+                        🗑 Wyczyść
+                    </div>
+                </div>
+            </div>
+
+            <button class="toolbar-btn" onclick="showHelp()">
+                <span>❓</span>
+                <span>Help</span>
+            </button>
+
+            <div class="theme-picker">
+                <span class="theme-picker-label">Styl</span>
+                <select id="themeSelect" class="theme-select" title="Wybierz motyw">
+                    <option value="dark">Ciemny</option>
+                    <option value="light">Jasny</option>
+                    <option value="contrast">Kontrast</option>
+                    <option value="nord">Nord</option>
+                    <option value="midnight">Midnight</option>
+                    <option value="solarized">Solarized</option>
+                </select>
+            </div>
+
+            <div class="toolbar-separator"></div>
+
+            <button class="toolbar-btn" id="undoBtn" onclick="Editor?.undo()">
+                <span>↩</span>
+                <span>Undo</span>
+            </button>
+
+            <button class="toolbar-btn" id="redoBtn" onclick="Editor?.redo()">
+                <span>↪</span>
+                <span>Redo</span>
+            </button>
+
+            <div class="toolbar-spacer"></div>
+
+            <div class="user-info">
+                <span class="user-name" id="studentBadge">Student</span>
+                <div class="status-badge">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span id="statusBadge">Offline</span>
+                </div>
+                <div class="compile-indicator" id="compileStatus">--</div>
+            </div>
+
+            <button class="toolbar-btn primary" id="runBtn" onclick="runCode()">
+                <span>▶</span>
+                <span>Run</span>
+            </button>
+
+            <button
+                class="toolbar-btn danger"
+                id="stopBtn"
+                onclick="stopCode()"
+                style="display: none"
+            >
+                <span>⬛</span>
+                <span>Stop</span>
+            </button>
+
+            <button class="toolbar-btn" id="logoutBtn">
+                <span>🚪</span>
+                <span>Logout</span>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main">
+            <!-- Editor Area -->
+            <div class="editor-area">
+                <!-- Code Editor -->
+                <div class="editor-content">
+                    <div class="code-area">
+                        <div id="editor"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal Panel -->
+        <div class="terminal-panel">
+            <div class="terminal-header">
+                <div class="terminal-tab active">TERMINAL</div>
+                <div class="terminal-actions">
+                    <button
+                        class="terminal-action-btn"
+                        onclick="copyTerminalOutput()"
+                        title="Kopiuj output"
+                    >
+                        📋
+                    </button>
+                    <button
+                        class="terminal-action-btn"
+                        onclick="clearTerminal()"
+                        title="Clear"
+                    >
+                        🗑
+                    </button>
+                    <button
+                        class="terminal-action-btn"
+                        onclick="toggleTerminalSize()"
+                        title="Maximize"
+                    >
+                        ⛶
+                    </button>
+                </div>
+            </div>
+            <div class="terminal-body" id="terminalOutput">
+                <div class="line system">
+                    C++ Compiler v2.0 | Press F5 or click Run to execute
+                </div>
+                <span class="cursor"></span>
+            </div>
+            <div class="terminal-input-area">
+                <span class="prompt" id="promptIcon">stdin:</span>
+                <input
+                    type="text"
+                    id="terminalInput"
+                    placeholder="wpisz dane i nacisnij Enter..."
+                    autocomplete="off"
+                />
+                <button
+                    class="terminal-btn run"
+                    id="runBtn2"
+                    onclick="runCode()"
+                >
+                    Run
+                </button>
+                <button
+                    class="terminal-btn stop"
+                    id="stopBtn2"
+                    onclick="stopCode()"
+                >
+                    Stop
+                </button>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="statusbar">
+            <div class="statusbar-item" id="readyState">
+                <span>🔔</span>
+                <span>Ready</span>
+            </div>
+            <div class="statusbar-spacer"></div>
+            <div class="statusbar-item" id="cursorPos">
+                <span>Ln 1, Col 1</span>
+            </div>
+            <div class="statusbar-item" id="codeStats">
+                <span>0 linii</span>
+            </div>
+            <div class="statusbar-item" id="autosaveState">
+                <span>Autosave: gotowe</span>
+            </div>
+            <div class="statusbar-item">
+                <span>UTF-8</span>
+            </div>
+            <div class="statusbar-item">
+                <span>C++17</span>
+            </div>
+            <div class="statusbar-item">
+                <span>x86_64</span>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div class="notification" id="notification"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/search.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/searchcursor.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/dialog/dialog.min.js"></script>
+        <script src="js/socket.io.min.js"></script>
+        <script src="js/compiler.js"></script>
+        <script src="js/student.js"></script>
+        <script>
+            const STUDENT_THEME_KEY = "student_theme";
+
+            function applyStudentTheme(theme, save = true) {
+                const normalized = ["dark", "light", "contrast", "nord", "midnight", "solarized"].includes(theme)
+                    ? theme
+                    : "dark";
+                document.body.setAttribute("data-theme", normalized);
+                const select = document.getElementById("themeSelect");
+                if (select && select.value !== normalized) {
+                    select.value = normalized;
+                }
+                if (save) {
+                    try {
+                        localStorage.setItem(STUDENT_THEME_KEY, normalized);
+                    } catch (e) {}
+                }
+            }
+
+            function initThemePicker() {
+                let savedTheme = "dark";
+                try {
+                    savedTheme =
+                        localStorage.getItem(STUDENT_THEME_KEY) || "dark";
+                } catch (e) {}
+                applyStudentTheme(savedTheme, false);
+
+                const select = document.getElementById("themeSelect");
+                if (!select) return;
+                select.addEventListener("change", (e) => {
+                    applyStudentTheme(e.target.value, true);
+                });
+            }
+
+            function showNotification(message, type = "success") {
+                const notif = document.getElementById("notification");
+                notif.textContent = message;
+                notif.className = `notification ${type} show`;
+                setTimeout(() => notif.classList.remove("show"), 3000);
+            }
+
+            function getFileTimestamp() {
+                return new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
+            }
+
+            function triggerDownload(content, fileName, mimeType = "text/plain") {
+                const blob = new Blob([content], { type: mimeType });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+
+            function getTerminalLogsText() {
+                const terminal = document.getElementById("terminalOutput");
+                if (!terminal) return "";
+                return (terminal.innerText || "").trim();
+            }
+
+            function downloadCode() {
+                const code = localStorage.getItem("student_code") || "";
+                triggerDownload(code, "main.cpp");
+                showNotification("Kod zapisany na komputerze");
+            }
+
+            function downloadLogs() {
+                const logs = getTerminalLogsText();
+                if (!logs) {
+                    showNotification("Brak logów do pobrania", "error");
+                    return;
+                }
+                const ts = getFileTimestamp();
+                triggerDownload(logs + "\\n", `logs_${ts}.txt`);
+                showNotification("Logi zapisane na komputerze");
+            }
+
+            function downloadCodeAndLogs() {
+                const code = localStorage.getItem("student_code") || "";
+                const logs = getTerminalLogsText();
+                const ts = getFileTimestamp();
+
+                triggerDownload(code, `main_${ts}.cpp`);
+                triggerDownload(logs ? logs + "\\n" : "Brak logów\\n", `logs_${ts}.txt`);
+                showNotification("Kod i logi zapisane na komputerze");
+            }
+
+            async function loadExample(filename, title) {
+                if (
+                    !confirm(
+                        `Wczytać przykład "${title}"?\n\nNiezapisany kod zostanie utracony.`,
+                    )
+                )
+                    return;
+
+                try {
+                    const response = await fetch(filename);
+                    if (response.ok) {
+                        const code = await response.text();
+                        localStorage.setItem("student_code", code);
+                        location.reload();
+                    } else {
+                        showNotification(
+                            "Błąd wczytywania przykładu!",
+                            "error",
+                        );
+                    }
+                } catch (e) {
+                    showNotification("Błąd połączenia!", "error");
+                }
+            }
+
+            function newFile() {
+                if (
+                    confirm(
+                        "Utworzyć nowy plik? Niezapisane zmiany zostaną utracone.",
+                    )
+                ) {
+                    localStorage.removeItem("student_code");
+                    location.reload();
+                }
+            }
+
+            function clearEditor() {
+                if (
+                    confirm(
+                        "Wyczyścić cały kod w edytorze? Tej operacji nie można cofnąć.",
+                    )
+                ) {
+                    localStorage.removeItem("student_code");
+                    location.reload();
+                }
+            }
+
+            function showHelp() {
+                const help = `Shortcuts:
+  F5          - Run program
+  Ctrl+Enter  - Run program
+  Esc         - Stop program
+  Ctrl+S      - Save
+  Ctrl+F      - Find
+  Ctrl+H      - Replace
+  Ctrl+L      - Clear terminal
+  Ctrl+Z      - Undo`;
+                const terminal = document.getElementById("terminalOutput");
+                terminal.innerHTML +=
+                    "\n" +
+                    help
+                        .split("\n")
+                        .map((l) => `<div class="line system">${l}</div>`)
+                        .join("");
+            }
+
+            function toggleTerminalSize() {
+                const terminal = document.querySelector(".terminal-panel");
+                const newHeight =
+                    terminal.style.height === "500px" ? "250px" : "500px";
+                terminal.style.height = newHeight;
+                try {
+                    localStorage.setItem(
+                        "student_ui_prefs_v1",
+                        JSON.stringify({ terminalHeight: newHeight }),
+                    );
+                } catch (e) {}
+            }
+
+            function clearTerminal() {
+                const terminal = document.getElementById("terminalOutput");
+                terminal.innerHTML =
+                    '<div class="line system">Terminal cleared</div><span class="cursor"></span>';
+            }
+
+            async function copyTerminalOutput() {
+                const terminal = document.getElementById("terminalOutput");
+                if (!terminal) return;
+                const text = (terminal.innerText || "").trim();
+                if (!text) {
+                    showNotification("Brak outputu do skopiowania", "error");
+                    return;
+                }
+                try {
+                    await navigator.clipboard.writeText(text);
+                    showNotification("Output skopiowany!");
+                } catch (e) {
+                    showNotification("Nie udało się skopiować outputu", "error");
+                }
+            }
+
+            function logout() {
+                if (confirm("Wylogować się?")) {
+                    const statusDot = document.getElementById("statusDot");
+                    const statusBadge = document.getElementById("statusBadge");
+                    if (statusDot) {
+                        statusDot.classList.remove("online");
+                        statusDot.classList.add("error");
+                    }
+                    if (statusBadge) {
+                        statusBadge.textContent = "Offline";
+                    }
+                    
+                    const terminalOutput = document.getElementById("terminalOutput");
+                    if (terminalOutput) {
+                        terminalOutput.innerHTML += "\n" + '<div class="line system" style="color: #f14c4c;">═══════════════════════════════</div>';
+                        terminalOutput.innerHTML += "\n" + '<div class="line system" style="color: #f14c4c; font-weight: bold;">Zostałeś wylogowany. Jesteś teraz OFFLINE.</div>';
+                        terminalOutput.innerHTML += "\n" + '<div class="line system" style="color: #6b7280;">Strona odświeży się automatycznie...</div>';
+                        terminalOutput.innerHTML += "\n" + '<div class="line system" style="color: #f14c4c;">═══════════════════════════════</div>';
+                        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                    }
+                    
+                    setTimeout(() => {
+                        localStorage.removeItem("student_info");
+                        localStorage.removeItem("student_code");
+                        localStorage.removeItem("studentActivity");
+                        location.reload();
+                    }, 2000);
+                }
+            }
+
+            function runCode() {
+                if (window.Compiler && window.Compiler.runCode) {
+                    const code = localStorage.getItem("student_code") || "";
+
+                    const stopBtn = document.getElementById("stopBtn");
+                    const stopBtn2 = document.getElementById("stopBtn2");
+                    if (stopBtn) stopBtn.style.display = "flex";
+                    if (stopBtn2) stopBtn2.classList.add("active");
+
+                    window.Compiler.runCode(code);
+                }
+            }
+
+            function stopCode() {
+                if (window.Compiler && window.Compiler.stopProgram) {
+                    window.Compiler.stopProgram();
+
+                    const stopBtn = document.getElementById("stopBtn");
+                    const stopBtn2 = document.getElementById("stopBtn2");
+                    if (stopBtn) stopBtn.style.display = "none";
+                    if (stopBtn2) stopBtn2.classList.remove("active");
+                }
+            }
+
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "F5") {
+                    e.preventDefault();
+                    runCode();
+                }
+            });
+
+            initThemePicker();
+        </script>
+    </body>
+</html>
