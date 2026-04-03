@@ -1,57 +1,227 @@
 {
-  "students": [],
+  "students": [
+    {
+      "id": "s_1775241468156_jdhm38lpf",
+      "firstName": "ASF",
+      "journalNum": "ASF",
+      "className": "2",
+      "lastSeen": 1775241468723,
+      "loggedOut": true,
+      "loggedOutAt": 1775241483381
+    }
+  ],
   "activities": {
-    "s_1774461756673_5g2bgsosz": [
+    "s_1775241468156_jdhm38lpf": [
       {
-        "ts": 1774466740727,
+        "ts": 1775241468158,
+        "type": "blur_window",
+        "details": {
+          "source": "window_blur",
+          "platform": "linux x86_64"
+        },
+        "studentName": "ASF"
+      },
+      {
+        "ts": 1775241468159,
+        "type": "suspicious",
+        "details": {
+          "reason": "Utrata fokusu okna",
+          "score": 1,
+          "source": "window_blur"
+        },
+        "studentName": "ASF"
+      },
+      {
+        "ts": 1775241468159,
         "type": "focus",
         "details": {
           "source": "window_focus",
           "platform": "linux x86_64"
         },
-        "studentName": "asf"
+        "studentName": "ASF"
       },
       {
-        "ts": 1774466743877,
+        "ts": 1775241468217,
+        "type": "suspicious",
+        "details": {
+          "reason": "Podejrzany układ okna (możliwe 2 okna)",
+          "score": 3,
+          "source": "on_connect",
+          "fullscreen": false,
+          "outerWidth": 2507,
+          "outerHeight": 1220,
+          "innerWidth": 2507,
+          "innerHeight": 1220
+        },
+        "studentName": "ASF"
+      },
+      {
+        "ts": 1775241471744,
+        "type": "suspicious",
+        "details": {
+          "reason": "Wyjście z trybu pełnoekranowego",
+          "score": 5
+        },
+        "studentName": "ASF",
+        "savedAt": 1775241471747
+      },
+      {
+        "ts": 1775241471744,
+        "type": "suspicious",
+        "details": {
+          "reason": "Wyjście z trybu pełnoekranowego",
+          "score": 5
+        },
+        "studentName": "ASF"
+      },
+      {
+        "ts": 1775241472171,
+        "type": "blur_window",
+        "details": {
+          "source": "window_blur",
+          "platform": "linux x86_64"
+        },
+        "studentName": "ASF",
+        "savedAt": 1775241472174
+      },
+      {
+        "ts": 1775241472172,
+        "type": "suspicious",
+        "details": {
+          "reason": "Utrata fokusu okna",
+          "score": 6,
+          "source": "window_blur"
+        },
+        "studentName": "ASF",
+        "savedAt": 1775241472174
+      },
+      {
+        "ts": 1775241472171,
+        "type": "blur_window",
+        "details": {
+          "source": "window_blur",
+          "platform": "linux x86_64"
+        },
+        "studentName": "ASF"
+      },
+      {
+        "ts": 1775241472172,
+        "type": "suspicious",
+        "details": {
+          "reason": "Utrata fokusu okna",
+          "score": 6,
+          "source": "window_blur"
+        },
+        "studentName": "ASF"
+      },
+      {
+        "ts": 1775241479559,
+        "type": "focus",
+        "details": {
+          "source": "window_focus",
+          "platform": "linux x86_64"
+        },
+        "studentName": "ASF",
+        "savedAt": 1775241479561
+      },
+      {
+        "ts": 1775241479559,
+        "type": "focus",
+        "details": {
+          "source": "window_focus",
+          "platform": "linux x86_64"
+        },
+        "studentName": "ASF"
+      },
+      {
+        "ts": 1775241483089,
+        "type": "blur_window",
+        "details": {
+          "source": "window_blur",
+          "platform": "linux x86_64"
+        },
+        "studentName": "ASF",
+        "savedAt": 1775241483097
+      },
+      {
+        "ts": 1775241483089,
+        "type": "suspicious",
+        "details": {
+          "reason": "Utrata fokusu okna",
+          "score": 7,
+          "source": "window_blur"
+        },
+        "studentName": "ASF",
+        "savedAt": 1775241483098
+      },
+      {
+        "ts": 1775241483089,
+        "type": "blur_window",
+        "details": {
+          "source": "window_blur",
+          "platform": "linux x86_64"
+        },
+        "studentName": "ASF"
+      },
+      {
+        "ts": 1775241483089,
+        "type": "suspicious",
+        "details": {
+          "reason": "Utrata fokusu okna",
+          "score": 7,
+          "source": "window_blur"
+        },
+        "studentName": "ASF"
+      },
+      {
+        "ts": 1775241483371,
+        "type": "suspicious",
+        "details": {
+          "reason": "Podejrzany układ okna (możliwe 2 okna)",
+          "score": 9,
+          "source": "viewport_guard",
+          "fullscreen": false,
+          "outerWidth": 2507,
+          "outerHeight": 1220,
+          "innerWidth": 2507,
+          "innerHeight": 1220
+        },
+        "studentName": "ASF",
+        "savedAt": 1775241483372
+      },
+      {
+        "ts": 1775241483371,
+        "type": "suspicious",
+        "details": {
+          "reason": "Podejrzany układ okna (możliwe 2 okna)",
+          "score": 9,
+          "source": "viewport_guard",
+          "fullscreen": false,
+          "outerWidth": 2507,
+          "outerHeight": 1220,
+          "innerWidth": 2507,
+          "innerHeight": 1220
+        },
+        "studentName": "ASF"
+      },
+      {
+        "ts": 1775241483373,
         "type": "logout",
-        "details": {},
-        "studentName": "asf"
+        "details": {
+          "forcedByAntiCheat": true,
+          "reason": "Zbyt wiele naruszeń zasad w krótkim czasie."
+        },
+        "studentName": "ASF"
       },
       {
-        "ts": 1774466743897,
-        "type": "blur_window",
+        "ts": 1775241483395,
+        "type": "suspicious",
         "details": {
-          "source": "window_blur",
-          "platform": "linux x86_64"
+          "reason": "Przełączenie karty/okna",
+          "score": 10,
+          "source": "visibilitychange"
         },
-        "studentName": "asf"
-      },
-      {
-        "ts": 1774466743898,
-        "type": "focus",
-        "details": {
-          "source": "window_focus",
-          "platform": "linux x86_64"
-        },
-        "studentName": "asf"
-      },
-      {
-        "ts": 1774466744545,
-        "type": "blur_window",
-        "details": {
-          "source": "window_blur",
-          "platform": "linux x86_64"
-        },
-        "studentName": "asf"
-      },
-      {
-        "ts": 1774466745912,
-        "type": "blur_window",
-        "details": {
-          "source": "visibilitychange",
-          "platform": "linux x86_64"
-        },
-        "studentName": "Nieznany"
+        "studentName": "ASF"
       }
     ]
   },

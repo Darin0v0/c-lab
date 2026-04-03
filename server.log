@@ -4687,3 +4687,105 @@
 [2026-03-25T19:25:35.194Z] Client connected: F-4WaW9xFpjuQTpnAAAN
 [2026-03-25T19:25:35.210Z] Teacher connected: F-4WaW9xFpjuQTpnAAAN
 [2026-03-25T19:25:40.381Z] Database cleared by teacher
+[2026-04-03T18:32:02.562Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: 462efeeec5e4a1e507c594eb368e3405d2a26cae782dba51
+[2026-04-03T18:32:02.563Z] SECURITY WARNING: ONLINE_COMPILER_API_KEY is not set. Socket compile_only will fail.
+[2026-04-03T18:32:02.563Z] ========================================
+[2026-04-03T18:32:02.563Z] Server started on port 3000
+[2026-04-03T18:32:02.563Z] http://localhost:3000
+[2026-04-03T18:32:02.563Z] ========================================
+[2026-04-03T18:33:39.133Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: 746a25ddcbf93ad64f525653a999564833aec5d200154f9e
+[2026-04-03T18:33:39.133Z] SECURITY WARNING: ONLINE_COMPILER_API_KEY is not set. Socket compile_only will fail.
+[2026-04-03T18:33:39.133Z] ========================================
+[2026-04-03T18:33:39.133Z] Server started on port 3000
+[2026-04-03T18:33:39.133Z] http://localhost:3000
+[2026-04-03T18:33:39.133Z] ========================================
+[2026-04-03T18:34:09.971Z] Client connected: yVKZPdKKbRsqxUTeAAAB
+[2026-04-03T18:34:09.991Z] Teacher auth failed: yVKZPdKKbRsqxUTeAAAB
+[2026-04-03T18:34:12.568Z] Teacher auth failed: yVKZPdKKbRsqxUTeAAAB
+[2026-04-03T18:34:13.930Z] Teacher auth failed: yVKZPdKKbRsqxUTeAAAB
+[2026-04-03T18:34:17.676Z] Teacher auth failed: yVKZPdKKbRsqxUTeAAAB
+[2026-04-03T18:34:19.530Z] Teacher auth failed: yVKZPdKKbRsqxUTeAAAB
+[2026-04-03T18:34:21.962Z] Teacher auth failed: yVKZPdKKbRsqxUTeAAAB
+[2026-04-03T18:34:55.003Z] Client disconnected: yVKZPdKKbRsqxUTeAAAB
+[2026-04-03T18:35:30.905Z] Client connected: ELPfaeNzTHwhAhz2AAAD
+[2026-04-03T18:35:30.905Z] Teacher connected: ELPfaeNzTHwhAhz2AAAD
+[2026-04-03T18:35:30.912Z] Teacher connected: ELPfaeNzTHwhAhz2AAAD
+[2026-04-03T18:35:56.278Z] Client connected: Qshm7DPEeGCs2d6FAAAF
+[2026-04-03T18:35:56.788Z] register_student received: {"id":"s_1775241356212_5l6aqkrzp","firstName":"dAWID MURIAS","journalNum":"2","className":"3"}
+[2026-04-03T18:35:56.790Z] Student registered: dAWID MURIAS
+[2026-04-03T18:35:59.555Z] Saved activities for student dAWID MURIAS
+[2026-04-03T18:35:59.556Z] Saved activities for student dAWID MURIAS
+[2026-04-03T18:35:59.822Z] Saved activities for student dAWID MURIAS
+[2026-04-03T18:36:00.912Z] Saved activities for student dAWID MURIAS
+[2026-04-03T18:36:00.913Z] ANTI-CHEAT warn: dAWID MURIAS (s_1775241356212_5l6aqkrzp) score=5
+[2026-04-03T18:36:00.913Z] Saved activities for student dAWID MURIAS
+[2026-04-03T18:36:01.209Z] Saved activities for student dAWID MURIAS
+[2026-04-03T18:36:01.209Z] ANTI-CHEAT lock: dAWID MURIAS (s_1775241356212_5l6aqkrzp) score=11
+[2026-04-03T18:36:03.508Z] Client disconnected: ELPfaeNzTHwhAhz2AAAD
+[2026-04-03T18:36:03.639Z] Client connected: Lvi2OIj5bW5DquORAAAH
+[2026-04-03T18:36:03.663Z] Teacher connected: Lvi2OIj5bW5DquORAAAH
+[2026-04-03T18:36:08.275Z] Saved activities for student dAWID MURIAS
+[2026-04-03T18:36:13.094Z] Saved activities for student dAWID MURIAS
+[2026-04-03T18:36:13.095Z] ANTI-CHEAT warn: dAWID MURIAS (s_1775241356212_5l6aqkrzp) score=12
+[2026-04-03T18:36:13.095Z] Saved activities for student dAWID MURIAS
+[2026-04-03T18:36:13.095Z] Saved code for student dAWID MURIAS
+[2026-04-03T18:36:13.096Z] ANTI-CHEAT logout: dAWID MURIAS (s_1775241356212_5l6aqkrzp) score=15
+[2026-04-03T18:36:13.096Z] Student disconnected (now offline): dAWID MURIAS
+[2026-04-03T18:36:13.096Z] Client disconnected: Qshm7DPEeGCs2d6FAAAF
+[2026-04-03T18:36:13.181Z] Saved code for student dAWID MURIAS
+[2026-04-03T18:36:13.181Z] Student logged out via API: s_1775241356212_5l6aqkrzp
+[2026-04-03T18:36:18.691Z] Client disconnected: Lvi2OIj5bW5DquORAAAH
+[2026-04-03T18:36:18.815Z] Client connected: sa_jIX46RBgxOitaAAAJ
+[2026-04-03T18:36:18.846Z] Teacher connected: sa_jIX46RBgxOitaAAAJ
+[2026-04-03T18:36:34.413Z] Client connected: KVWXGHkP1BWbbVj2AAAL
+[2026-04-03T18:36:34.920Z] register_student received: {"id":"s_1775241394382_v6bhdo3r1","firstName":"ASFASF","journalNum":"ASFASF","className":"AS"}
+[2026-04-03T18:36:34.921Z] Student registered: ASFASF
+[2026-04-03T18:36:36.686Z] Saved activities for student ASFASF
+[2026-04-03T18:36:36.687Z] Saved activities for student ASFASF
+[2026-04-03T18:36:48.454Z] Saved activities for student ASFASF
+[2026-04-03T18:36:58.809Z] Saved activities for student ASFASF
+[2026-04-03T18:36:58.810Z] ANTI-CHEAT warn: ASFASF (s_1775241394382_v6bhdo3r1) score=7
+[2026-04-03T18:36:58.811Z] Saved activities for student ASFASF
+[2026-04-03T18:36:58.812Z] ANTI-CHEAT lock: ASFASF (s_1775241394382_v6bhdo3r1) score=10
+[2026-04-03T18:37:03.103Z] Saved activities for student ASFASF
+[2026-04-03T18:37:03.104Z] Saved activities for student ASFASF
+[2026-04-03T18:37:03.105Z] Saved code for student ASFASF
+[2026-04-03T18:37:03.105Z] ANTI-CHEAT logout: ASFASF (s_1775241394382_v6bhdo3r1) score=14
+[2026-04-03T18:37:03.105Z] Student disconnected (now offline): ASFASF
+[2026-04-03T18:37:03.105Z] Client disconnected: KVWXGHkP1BWbbVj2AAAL
+[2026-04-03T18:37:03.121Z] Saved code for student ASFASF
+[2026-04-03T18:37:03.121Z] Student logged out via API: s_1775241394382_v6bhdo3r1
+[2026-04-03T18:37:04.690Z] Client disconnected: sa_jIX46RBgxOitaAAAJ
+[2026-04-03T18:37:04.803Z] Client connected: O_4lxN7R1x0g3FjqAAAN
+[2026-04-03T18:37:04.827Z] Teacher connected: O_4lxN7R1x0g3FjqAAAN
+[2026-04-03T18:37:23.736Z] Removing student manually: s_1775241394382_v6bhdo3r1
+[2026-04-03T18:37:25.915Z] Removing student manually: s_1775241356212_5l6aqkrzp
+[2026-04-03T18:37:30.666Z] All students removed by teacher (POST)
+[2026-04-03T18:37:48.213Z] Client connected: Df5NqkrDkGiXghdWAAAP
+[2026-04-03T18:37:48.723Z] register_student received: {"id":"s_1775241468156_jdhm38lpf","firstName":"ASF","journalNum":"ASF","className":"2"}
+[2026-04-03T18:37:48.723Z] Student registered: ASF
+[2026-04-03T18:37:51.747Z] Saved activities for student ASF
+[2026-04-03T18:37:52.174Z] Saved activities for student ASF
+[2026-04-03T18:37:52.174Z] Saved activities for student ASF
+[2026-04-03T18:37:52.174Z] ANTI-CHEAT warn: ASF (s_1775241468156_jdhm38lpf) score=7
+[2026-04-03T18:37:59.561Z] Saved activities for student ASF
+[2026-04-03T18:38:03.097Z] Saved activities for student ASF
+[2026-04-03T18:38:03.097Z] ANTI-CHEAT warn: ASF (s_1775241468156_jdhm38lpf) score=8
+[2026-04-03T18:38:03.097Z] Saved activities for student ASF
+[2026-04-03T18:38:03.098Z] ANTI-CHEAT lock: ASF (s_1775241468156_jdhm38lpf) score=11
+[2026-04-03T18:38:03.372Z] Saved activities for student ASF
+[2026-04-03T18:38:03.372Z] Saved code for student ASF
+[2026-04-03T18:38:03.373Z] ANTI-CHEAT logout: ASF (s_1775241468156_jdhm38lpf) score=14
+[2026-04-03T18:38:03.373Z] Student disconnected (now offline): ASF
+[2026-04-03T18:38:03.373Z] Client disconnected: Df5NqkrDkGiXghdWAAAP
+[2026-04-03T18:38:03.381Z] Saved code for student ASF
+[2026-04-03T18:38:03.382Z] Student logged out via API: s_1775241468156_jdhm38lpf
+[2026-04-03T18:38:30.331Z] SECURITY WARNING: TEACHER_TOKEN not set. Temporary token for this run: caeac23c4a71e74ca09ab550bd6acc584ffcb16144782c4a
+[2026-04-03T18:38:30.332Z] SECURITY WARNING: ONLINE_COMPILER_API_KEY is not set. Socket compile_only will fail.
+[2026-04-03T18:38:30.332Z] ========================================
+[2026-04-03T18:38:30.332Z] Server started on port 3000
+[2026-04-03T18:38:30.332Z] http://localhost:3000
+[2026-04-03T18:38:30.332Z] ========================================
+[2026-04-03T18:38:31.130Z] Client connected: BMUfvo4Jqhcli4r0AAAB
+[2026-04-03T18:38:31.137Z] Teacher auth failed: BMUfvo4Jqhcli4r0AAAB
+[2026-04-03T18:39:03.827Z] Client disconnected: BMUfvo4Jqhcli4r0AAAB

@@ -340,7 +340,7 @@ const STATIC_ROOT_FILES = new Set([
   "/przyklad1.txt", "/przyklad2.txt", "/examples.txt", "/liczby.txt"
 ]);
 
-app.get("*", (req, res, next) => {
+app.get("*splat", (req, res, next) => {
   if (!STATIC_ROOT_FILES.has(req.path)) return next();
   const file = req.path === "/" ? "index.html" : req.path.slice(1);
   res.sendFile(path.join(__dirname, file));
